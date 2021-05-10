@@ -24,12 +24,24 @@
     <ClCompile Include="locuinta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="apartament.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="casa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="locuinta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="apartament.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="casa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

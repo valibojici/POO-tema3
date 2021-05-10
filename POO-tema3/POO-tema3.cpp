@@ -1,10 +1,19 @@
  #include <iostream>
-#include "client.h"
+#include "apartament.h"
+#include "casa.h"
 
 int main()
 {
-    Client c("Popescu", "Ion", "0235322");
+    Locuinta *l = new Apartament({ "Popescu", "Ion", "12345" }, 10, 2, 120);
+    std::cout << *l << "\n\n";
 
-    std::cout << c;
+    l = new Casa({ "Popescu", "Ion", "12345" }, 0, 3, { 120, 60, 60 }, 230);
+
+    std::cout << *l << "\n\n";
+
+    l = new Casa;
+
+    std::cin >> *l;
+    std::cout << "\n" << *l;
 }
  

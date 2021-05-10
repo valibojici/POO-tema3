@@ -139,11 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="apartament.cpp" />
+    <ClCompile Include="casa.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="locuinta.cpp" />
     <ClCompile Include="POO-tema3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="apartament.h" />
+    <ClInclude Include="casa.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="locuinta.h" />
   </ItemGroup>
