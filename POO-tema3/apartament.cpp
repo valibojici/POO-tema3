@@ -15,6 +15,8 @@ void Apartament::citire(std::istream& in)
 	Locuinta::citire(in);
 	std::cout << "Etaj: ";
 	in >> m_etaj;
+	std::cout << "Suprafata utila: ";
+	in >> m_suprafataUtila;
 }
 
 std::ostream& operator<<(std::ostream& out, const Apartament& a)

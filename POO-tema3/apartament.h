@@ -6,8 +6,8 @@ class Client;
 class Apartament : public Locuinta
 {
 private:
-	int m_etaj;
-	float m_suprafataUtila;
+	int m_etaj = 0;
+	float m_suprafataUtila = 0;
 
 protected:
 	void afis(std::ostream&) const;

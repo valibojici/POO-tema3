@@ -149,6 +149,7 @@
     <ClInclude Include="apartament.h" />
     <ClInclude Include="casa.h" />
     <ClInclude Include="client.h" />
+    <ClInclude Include="gestiune.h" />
     <ClInclude Include="locuinta.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

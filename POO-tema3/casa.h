@@ -7,8 +7,8 @@ class Client;
 class Casa : public Locuinta
 {
 private:
-	int m_nrEtaje;
-	float m_suprafataCurte;
+	int m_nrEtaje = 0;
+	float m_suprafataCurte = 0;
 	const float c_pretCurte = 40;
 	std::vector<float> m_suprafataEtaj;
 

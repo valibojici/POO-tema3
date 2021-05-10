@@ -17,6 +17,7 @@ std::istream& operator>>(std::istream& in, Locuinta& l)
 
 void Locuinta::afis(std::ostream& out) const
 {
+	out << "Index locuinta: " << m_index << '\n';
 	out << "Date client -> " << m_client << '\n';
 	out << "Pret metru patrat: " << c_pretMetruPatrat << " | Discount: " << m_discount << "%";
 }

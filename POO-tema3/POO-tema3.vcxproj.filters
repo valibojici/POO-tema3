@@ -44,5 +44,8 @@
     <ClInclude Include="casa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gestiune.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
