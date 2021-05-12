@@ -9,46 +9,60 @@
 template<class T>
 class Gestiune  {
 private:
-	std::set<std::pair<T*, std::string> > m_info;
+
+	struct Compare 
+	{
+		bool operator()(const std::pair<T*, std::string> & x, const std::pair<T*, std::string> & y)const
+		{
+			return x.first->getIndex() < y.first->getIndex();
+		}
+	};
+
+	std::set < std::pair<T*, std::string>, Compare> m_info;
 
 	int m_nrLoc = 0;
+	float m_totalChirie = 0;
 
 public:
 	Gestiune() {}
 
-	Gestiune& operator+= (T*);
+	Gestiune& operator+= (const std::pair<T*, std::string>&);
+	Gestiune& operator-= (int);
 
-	void main_menu();
+	float getTotalChirie() const { return m_totalChirie; }
+	
 
 	void afis() const; 
+	void afisPeCategorii() const;
 
 };
 
 template<class T>
-Gestiune<T>& Gestiune<T>::operator+=(T* val)
+Gestiune<T>& Gestiune<T>::operator+=(const std::pair<T*,std::string>& val)
 {
-	T* c = dynamic_cast<Casa*>(val);
-	if (c != nullptr)
-	{
-		m_nrLoc++;
-		c->setIndex(m_nrLoc);
+	auto p = val;
 
-		m_info.insert({ c, "Casa" });
-	}
-	else
-	{
-		c = dynamic_cast<Apartament*>(val);
-		if (c != nullptr)
-		{
-			m_nrLoc++;
-			c->setIndex(m_nrLoc);
+	m_nrLoc++;
+	p.first->setIndex(m_nrLoc);
+	m_totalChirie += p.first->getChirie();
 
-			m_info.insert({ c, "Apartament" });
-		}
-		else {
-			throw std::invalid_argument("invalid argument");
-		}
-	}
+	m_info.insert({ p.first, p.second });
+ 
+	return *this;
+}
+
+template<class T>
+Gestiune<T>& Gestiune<T>::operator-= (int index)
+{
+	auto it = std::find_if(m_info.begin(), m_info.end(), [index](const std::pair<T*, std::string>& p) {
+		return p.first->getIndex() == index;
+	});
+
+	if (it == m_info.end())throw std::invalid_argument("Indexul nu exista");
+	
+	m_totalChirie -= it->first->getChirie();
+	m_info.erase(it);
+
 	return *this;
 }
 
@@ -56,89 +70,36 @@ template<class T>
 void Gestiune<T>::afis() const {
 	for (const auto& t : m_info)
 	{
-		std::cout << "Tip locuinta: " << t.second << '\n' << *(t.first) << "\n---------------------\n\n";
+		std::cout << "Tip locuinta: " << t.second << '\n' << *(t.first) << "\n--------------------------\n\n";
 	}
 }
-
 
 template<class T>
-void Gestiune<T>::main_menu()
-{
-	std::string input;
-	int option;
-	while (true)
+void Gestiune<T>::afisPeCategorii() const {
+	std::vector<std::pair<T*, std::string> >temp(m_info.begin(), m_info.end());
+
+	std::sort(temp.begin(), temp.end(), [](const auto& x, const auto& y) {
+		if(x.second != y.second)
+			return x.second < y.second;
+		return x.first->getIndex() < y.first->getIndex();
+	});
+
+	for (const auto& p : temp)
 	{
-		std::cout << "1. Adauga apartament\n";
-		std::cout << "2. Adauga casa\n";
-		std::cout << "3. Afisare\n";
-		std::cout << "4. Afisare (sortare pe tipuri)\n";
-		std::cout << "5. Total obtinut\n";
-		std::cout << "0. Exit\n";
-
-		bool ok = false;
-		while (!ok)
-		{
-			std::cin >> input;
-			ok = true;
-			try
-			{
-				option = std::stoi(input);
-				if (option < 0 || option > 5)throw std::invalid_argument("optiunea nu e valida");
-			}
-			catch (const std::exception& e)
-			{
-				ok = false;
-				std::cout << e.what() << '\n';
-			}
-		}
-
-		
-		if (option == 1)
-		{
-			Apartament* a = new Apartament();
-			std::cin >> *a;
-			(*this) += a;
-		}
-		else if (option == 2)
-		{
-			Casa* a = new Casa();
-			std::cin >> *a;
-			(*this) += a;
-		}
-		else if (option == 3)
-		{
-			std::cout << "\n";
-			this->afis();
-			std::cout << "\n";
-		}
-		else if (option == 4)
-		{
-			std::vector<std::pair<T*, std::string> >vals(m_info.begin(), m_info.end());
-
-			std::sort(vals.begin(), vals.end(), [](const auto& val1, const auto& val2) {
-				if(val1.second != val2.second)
-					return  val1.second < val2.second;
-				return val1.first->getIndex() < val2.first->getIndex();
-			});
-
-			for (const auto& p : vals)
-			{
-				std::cout << "Tip locuinta: " << p.second << '\n' << *(p.first) << "\n---------------------\n\n";
-			}
-		}
-		else if(option == 5)
-		{
-			float total = 0;
-			for (const auto& p : m_info)
-			{
-				total += (p.first)->getChirie();
-			}
-			std::cout << "TOTAL: " << total << '\n';
-		}
-		else {
-			return;
-		}
-
-		std::cout << '\n';
+		std::cout << "Tip locuinta: " << p.second << '\n';
+		std::cout << *p.first << "\n--------------------------\n\n";
 	}
 }
+ 
+
+template<> class Gestiune<Casa> {
+private:
+	std::vector<std::pair<Casa*, float> > m_info;
+	int m_nrCase = 0;
+	int m_nrLoc = 0;
+
+public:
+	Gestiune() {}
+	Gestiune& operator+= (const std::pair<Casa*, std::string>&);
+	void afis() const;
+};

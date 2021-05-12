@@ -2,7 +2,7 @@
 
 Casa::Casa(const Client& c, float discount, int nrEtaje, const std::vector<float>& suprEtaje, float suprCurte, float pretMp, float pretMpCurte)
 	: Locuinta(c, discount, pretMp), m_nrEtaje(nrEtaje), m_suprafataEtaj(suprEtaje),
-		m_suprafataCurte(suprCurte), c_pretCurte(pretMpCurte) {}
+		m_suprafataCurte(suprCurte), m_pretCurte(pretMpCurte) {}
 
 void Casa::afis(std::ostream& out) const {
 	Locuinta::afis(out);
@@ -59,7 +59,7 @@ std::ostream& operator<<(std::ostream& out, const Casa& c)
 float Casa::getChirie() const {
 	float total = 0;
 	for (float sup : m_suprafataEtaj)
-		total += sup * c_pretMetruPatrat;
-	total = total - m_discount * total / 100.0f + m_suprafataCurte * c_pretCurte;
+		total += sup * m_pretMetruPatrat;
+	total = total - m_discount * total / 100.0f + m_suprafataCurte * m_pretCurte;
 	return total;
 }

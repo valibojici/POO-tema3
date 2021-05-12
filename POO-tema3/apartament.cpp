@@ -33,6 +33,6 @@ std::istream& operator>>(std::istream& in, Apartament& a)
 
 float Apartament::getChirie() const
 {
-	float total = c_pretMetruPatrat * m_suprafataUtila;
+	float total = m_pretMetruPatrat * m_suprafataUtila;
 	return total - m_discount * total / 100.0f;
 }

@@ -9,7 +9,7 @@ class Casa : public Locuinta
 private:
 	int m_nrEtaje = 0;
 	float m_suprafataCurte = 0;
-	const float c_pretCurte = 40;
+	float m_pretCurte = 40;
 	std::vector<float> m_suprafataEtaj;
 
 protected:
@@ -23,5 +23,6 @@ public:
 	friend std::ostream& operator<<(std::ostream&, const Casa&);
 	friend std::istream& operator>>(std::istream&, Casa&);
 	float getChirie() const;
+	void setPretMpCurte(float pret) { m_pretCurte = pret; }
 };
 

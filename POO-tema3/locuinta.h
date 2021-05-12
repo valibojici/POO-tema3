@@ -6,7 +6,7 @@ class Locuinta
 protected:
 	Client m_client;
 	float m_discount = 0;
-	const float c_pretMetruPatrat = 20;
+	float m_pretMetruPatrat = 20;
 
 	int m_index = 0;
 
@@ -23,5 +23,7 @@ public:
 
 	int getIndex() const { return m_index; }
 	void setIndex(int index) { m_index = index; }
+	void setPretMp(float pret) { m_pretMetruPatrat = pret; }
+
 };
 
