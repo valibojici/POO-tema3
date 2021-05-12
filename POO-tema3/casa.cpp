@@ -39,7 +39,8 @@ void Casa::citire(std::istream& in)
 		}
 		in >> m_suprafataEtaj[i];
 	}
-
+	std::cout << "Pret mp curte: ";
+	in >> m_pretCurte;
 	std::cout << "Suprafata curte: ";
 	in >> m_suprafataCurte;
 }

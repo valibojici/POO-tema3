@@ -27,4 +27,6 @@ void Locuinta::citire(std::istream& in)
 	in >> m_client;
 	std::cout << "Discount: ";
 	in >> m_discount;
+	std::cout << "Pret mp: ";
+	in >> m_pretMetruPatrat;
 }

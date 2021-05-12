@@ -23,6 +23,7 @@ public:
 	friend std::ostream& operator<<(std::ostream&, const Casa&);
 	friend std::istream& operator>>(std::istream&, Casa&);
 	float getChirie() const;
+	float getSuprCurte() const { return m_suprafataCurte; }
 	void setPretMpCurte(float pret) { m_pretCurte = pret; }
 };
 

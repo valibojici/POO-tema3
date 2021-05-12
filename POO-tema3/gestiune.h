@@ -94,12 +94,77 @@ void Gestiune<T>::afisPeCategorii() const {
 
 template<> class Gestiune<Casa> {
 private:
-	std::vector<std::pair<Casa*, float> > m_info;
+	std::vector<Casa*> m_info;
 	int m_nrCase = 0;
 	int m_nrLoc = 0;
 
 public:
 	Gestiune() {}
-	Gestiune& operator+= (const std::pair<Casa*, std::string>&);
+	Gestiune<Casa>& operator+= (Casa* );
+	Gestiune<Casa>& operator-= (int);
 	void afis() const;
+	void afisDupaDimensiuneCurte() const;
+	float getTotalChirie() const;
 };
+
+void Gestiune<Casa>::afis() const
+{
+	std::cout << "Exista " << m_nrCase  << " case" << "\n\n";
+
+	for (Casa* p : m_info)
+	{
+		std::cout << *p;
+		std::cout << "\n------------------------------------\n";
+	}
+}
+
+void Gestiune<Casa>::afisDupaDimensiuneCurte() const
+{
+	std::vector<Casa*> temp = m_info;
+	std::sort(temp.begin(), temp.end(), [](Casa* x, Casa* y) {
+		return x->getSuprCurte() < y->getSuprCurte();
+	});
+
+	std::cout << "Exista " << m_nrCase << " case" << "\n\n";
+
+	for (Casa* p : temp)
+	{
+		std::cout << *p;
+		std::cout << "\n------------------------------------\n";
+	}
+}
+
+Gestiune<Casa>& Gestiune<Casa>::operator+= (Casa* c)
+{
+ 
+	m_nrLoc++;
+	c->setIndex(m_nrLoc);
+	m_nrCase++;
+
+	m_info.push_back(c);
+	return *this;
+}
+
+Gestiune<Casa>& Gestiune<Casa>::operator-= (int idx)
+{
+	auto it = std::find_if(m_info.begin(), m_info.end(), [idx](const auto& p) {
+		return p->getIndex() == idx;
+	});
+
+	if (it == m_info.end())throw std::invalid_argument("Index invalid");
+
+	m_info.erase(it);
+	m_nrCase--;
+
+	return *this;
+}
+
+float Gestiune<Casa>::getTotalChirie() const
+{
+	float total = 0;
+	for (const auto& c : m_info)
+	{
+		total += c->getChirie();
+	}
+	return total;
+}
