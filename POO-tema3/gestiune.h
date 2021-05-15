@@ -62,8 +62,6 @@ Gestiune<T>& Gestiune<T>::operator-=(int index)
 
 template<class T> 
 void Gestiune<T>::afis(std::ostream& out) const {
-	float total = 0;
-
 	if (m_locuinte.size() == 0)
 	{
 		out << "Nu exista locuinte";
@@ -72,6 +70,7 @@ void Gestiune<T>::afis(std::ostream& out) const {
 
 	for (const auto& t : m_locuinte)
 	{
+		out << std::string(60, '-') << '\n';
 		Apartament* a = dynamic_cast<Apartament*>(t.second);
 		if (a != nullptr)
 		{
@@ -86,10 +85,8 @@ void Gestiune<T>::afis(std::ostream& out) const {
 			}
 		}
 		out << "Index locuinta: " << t.first << '\n';
-		out << *(t.second) << "\n--------------------------\n\n";
-		total += t.second->getChirie();
+		out << *(t.second) << "\n" << std::string(60, '-') << "\n\n";
 	}
-	out << "\nTotal: " << total;
 }
  
 template<class T>
@@ -195,7 +192,6 @@ std::ostream& operator<<(std::ostream& out, const Gestiune<Casa>& g)
 }
  
 void Gestiune<Casa>::afis(std::ostream& out) const {
-	float total = 0;
 	if (m_locuinte.size() == 0)
 	{
 		std::cout << "Nu exista case";
@@ -203,11 +199,10 @@ void Gestiune<Casa>::afis(std::ostream& out) const {
 	}
 	for (const auto& t : m_locuinte)
 	{
+		out << std::string(60, '-') << '\n';
 		out << "Index locuinta: " << t.first << '\n';
-		out << *(t.second) << "\n--------------------------\n\n";
-		total += t.second->getChirie();
+		out << *(t.second) << "\n" << std::string(60, '-') << "\n\n";
 	}
-	out << "\nTotal: " << total;
 }
 
 Gestiune<Casa>& Gestiune<Casa>::operator+= (Casa* c)
